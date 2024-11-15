@@ -5,9 +5,7 @@ import tmdb, { imageURL } from '../api/tmdb';
 function Movies() {
   const [movies, setMovies] = useState([]);
   const [genres, setGenres] = useState([]);
-  //const [selectedGenre, setSelectedGenre] = useState('');
   const { genre, page } = useParams();
-  //const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const currentPage = parseInt(page) || 1;
   const selectedGenre = genre || '';
@@ -82,7 +80,7 @@ function Movies() {
               <img
                 src={`${imageURL}${movie.poster_path}`}
                 alt={movie.title}
-                className="w-full h-[350px] object-cover rounded-lg"
+                className="w-full h-[300px] object-cover rounded-lg lg:h-[350px]"
               />
               <h2 className="text-white mt-2 text-center">{movie.title}</h2>
             </Link>

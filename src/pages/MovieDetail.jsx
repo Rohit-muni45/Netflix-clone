@@ -12,6 +12,7 @@ export default function MovieDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [logoPath, setLogoPath] = useState(null);
+  const [fullOverview, setFullOverview] = useState(false);
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -63,6 +64,8 @@ export default function MovieDetail() {
     },
   };
 
+  const toggleOverview = () => setFullOverview((prev) => !prev);
+
   return (
     <div className="bg-black min-h-screen text-white">
       <div className="relative h-[85vh] sm:h-[100vh] xl:h-[100vh]">
@@ -91,7 +94,15 @@ export default function MovieDetail() {
             <span>{movie.release_date?.split('-')[0]} ||</span>
             <span className="flex px-1.5 py-0.5 rounded-md bg-red-600">{movie.vote_average.toFixed(1)} ⭐</span>
           </div>
-          <p className="max-w-8xl text-lg">{movie.overview}</p>
+          {/* <p className="max-w-8xl text-lg">{movie.overview}</p> */}
+          <p className='max-w-8xl text-lg'>
+          {fullOverview ? movie.overview : `${movie.overview.slice(0, 200)}...`}
+            <button
+             onClick={toggleOverview}
+             className="text-blue-500 underline ml-2 hover:text-blue-300">
+              {fullOverview ? 'Read Less' : 'Read More'}
+            </button>
+          </p>
           <div className="flex flex-wrap gap-2 mt-4">
             {movie.genres?.map((genre) => (
               <span key={genre.id} className="px-3 py-1 bg-red-600 rounded-full text-sm">

@@ -81,7 +81,7 @@ function Shows() {
               <img
                 src={`${imageURL}${show.poster_path}`}
                 alt={show.name}
-                className="w-full h-[350px] object-cover rounded-lg md:h-[300px]"
+                className="w-full h-[300px] object-cover rounded-lg lg:h-[350px]"
               />
               <h2 className="text-white mt-2 text-center">{show.name}</h2>
             </Link>
