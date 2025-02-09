@@ -3,6 +3,7 @@ import { useParams} from 'react-router-dom';
 import YouTube from 'react-youtube';
 import tmdb, { imageURL } from '../api/tmdb';
 import Row from '../components/Row';
+import { useAppContext } from '../context/Context';
 
 export default function MovieDetail() {
   const { id } = useParams();
@@ -13,6 +14,7 @@ export default function MovieDetail() {
   const [error, setError] = useState(null);
   const [logoPath, setLogoPath] = useState(null);
   const [fullOverview, setFullOverview] = useState(false);
+  const { watchlist,addToWatchlist } = useAppContext();
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -49,6 +51,9 @@ export default function MovieDetail() {
       fetchMovieDetails();
     }
   }, [id]);
+
+  
+  const isInWatchlist = watchlist.some((item) => item.id === movie?.id);
 
   if (loading) return <div className="text-white text-center mt-20">Loading...</div>;
   if (error) return <div className="text-red-500 text-center mt-20">{error}</div>;
@@ -93,6 +98,12 @@ export default function MovieDetail() {
           <div className="flex items-center space-x-4 mb-4">
             <span>{movie.release_date?.split('-')[0]} ||</span>
             <span className="flex px-1.5 py-0.5 rounded-md bg-red-600">{movie.vote_average.toFixed(1)} ⭐</span>
+            <button
+              onClick={() => addToWatchlist(movie)}
+              className="flex  px-1.5 py-0.5 bg-red-600 rounded hover:bg-red-700"
+            >
+              {isInWatchlist ? 'Remove from Watchlist' : 'Add to Watchlist'}
+            </button>
           </div>
           {/* <p className="max-w-8xl text-lg">{movie.overview}</p> */}
           <p className='max-w-8xl text-lg'>

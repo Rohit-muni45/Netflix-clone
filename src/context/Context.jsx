@@ -8,6 +8,17 @@ export function AppProvider({ children }) {
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [watchlist, setWatchlist] = useState([]);
+
+
+  const addToWatchlist = (item) => {
+    setWatchlist((prev) => {
+      return prev.some((movie) => movie.id === item.id)
+        ? prev.filter((movie) => movie.id !== item.id) // Remove if already added
+        : [...prev, item]; // Add if not in the list
+    });
+  };
+
 
   const handleSearch = useCallback(async (query) => {
     if (!query.trim()) return; 
@@ -36,6 +47,8 @@ export function AppProvider({ children }) {
     searchResults,
     loading,
     error,
+    watchlist,
+    addToWatchlist,
     setSearchQuery,
     handleSearch
   };

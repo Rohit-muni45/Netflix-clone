@@ -8,6 +8,7 @@ import MovieDetail from './pages/MovieDetail';
 import { AppProvider } from './context/Context';
 import SeriesDetail from './pages/SeriesDetail';
 import SearchResults from './pages/SearchResults';
+import Watchlist from './pages/Watchlist';
 
 function App() { 
   return (
@@ -28,6 +29,7 @@ function App() {
               <Route path="tv/:id" element={<SeriesDetail/>} />
               <Route path='/search/:query' element={<SearchResults/>}/>
               <Route path='/search/:query/:page' element={<SearchResults/>}/>
+              <Route path='/watchlist' element={<Watchlist/>} />
             </Routes>
           </main>
           <Footer />

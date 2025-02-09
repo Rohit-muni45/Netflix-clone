@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import YouTube from 'react-youtube';
 import tmdb, { imageURL } from '../api/tmdb';
 import Row from '../components/Row';
+import { useAppContext } from '../context/Context';
 
 export default function SeriesDetail() {
   const { id } = useParams();
@@ -13,6 +14,7 @@ export default function SeriesDetail() {
   const [error, setError] = useState(null);
   const [logoPath, setLogoPath] = useState(null);
   const [fullOverview, setFullOverview] = useState(false);
+  const {watchlist, addToWatchlist} = useAppContext();
 
   useEffect(() => {
     const fetchSeriesDetails = async () => { 
@@ -49,6 +51,8 @@ export default function SeriesDetail() {
       fetchSeriesDetails();
     }
   }, [id]);
+
+  const isInWatchlist = watchlist.some((item) => item.id === series?.id);
 
   if (loading) return <div className="text-white text-center mt-20">Loading...</div>;
   if (error) return <div className="text-red-500 text-center mt-20">{error}</div>;
@@ -94,6 +98,12 @@ export default function SeriesDetail() {
             <span>{series.first_air_date?.split('-')[0]} ||</span>
             <span>{series.number_of_seasons} Season{series.number_of_seasons > 1 ? 's' : ''} ||</span>
             <span className="flex px-1.5 py-0.5 rounded-md bg-red-600">{series.vote_average.toFixed(1)} ⭐</span>
+            <button
+              onClick={() => addToWatchlist(series)}
+              className="flex  px-1.5 py-0.5 bg-red-600 rounded hover:bg-red-700"
+            >
+               {isInWatchlist ? 'Remove from Watchlist' : 'Add to Watchlist'}
+            </button>
           </div>
           {/* <p className="max-w-8xl text-lg">{series.overview}</p> */}
           <p className="max-w-8xl text-lg">
