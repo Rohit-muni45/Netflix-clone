@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Search, X } from 'lucide-react';
 import { useAppContext } from '../context/Context';
+import Watchlist from '../pages/Watchlist';
 
 
 export default function Navbar() {
@@ -52,6 +53,7 @@ export default function Navbar() {
           <Link to="/" className="text-white hover:text-gray-300">Home</Link>
           <Link to="/movies" className="text-white hover:text-gray-300">Movies</Link>
           <Link to="/shows" className="text-white hover:text-gray-300">TV Shows</Link>
+          <Link to="/watchlist" className="text-white hover:text-gray-300">Mylist</Link>
         </div>
 
         {/* Search Bar */}
