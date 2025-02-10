@@ -11,6 +11,7 @@ export default function Footer() {
               <li><Link to="/" className="hover:text-white">Home</Link></li>
               <li><Link to="/movies" className="hover:text-white">Movies</Link></li>
               <li><Link to="/shows" className="hover:text-white">TV Shows</Link></li>
+              <li><Link to="/watchlist" className="hover:text-white">Watchlist</Link></li>
             </ul>
           </div>
           
